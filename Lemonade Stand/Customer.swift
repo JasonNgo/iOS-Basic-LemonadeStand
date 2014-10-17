@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class Customer {
+    var tastePreference:Float
+    var willPay:Bool
+    
+    init (tastePreference:Float, willPay:Bool) {
+        self.tastePreference = tastePreference
+        self.willPay = willPay
+    }
+}

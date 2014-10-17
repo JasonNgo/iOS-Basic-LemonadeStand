@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblPurchaseIceCubes: UILabel!
     @IBOutlet weak var lblMixLemons: UILabel!
     @IBOutlet weak var lblMixIceCubes: UILabel!
+    @IBOutlet weak var imgWeather: UIImageView!
     
     // Quantities
     var money:Int = 10 // Starting: 10
@@ -28,7 +29,10 @@ class ViewController: UIViewController {
     var iceCubeCount:Int = 0
     
     var lemonRatio:Int = 1
-    var iceCubeRatio:Int = 0
+    var iceCubeRatio:Int = 1
+    
+    var lemonToIceRatio:Float = 0.0
+    var customers:[Customer] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,12 +76,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func sellLemonsIsPressed(sender: UIButton) {
-        if (lemons > 1) {
+        if (lemons > 0) && (lemonCount > 0) {
             money += 2
             lemons -= 1
             lemonCount -= 1
         } else {
-            showAlerts(header: "Insufficient Lemons!", message: "You must have at least 1 lemon")
+            showAlerts(header: "Insufficient Lemons!", message: "")
         }
         updateView()
     }
@@ -94,7 +98,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sellIceCubsIsPressed(sender: UIButton) {
-        if (iceCubes > 0) {
+        if (iceCubes > 0) && (iceCubeCount > 0) {
             iceCubes -= 1
             iceCubeCount -= 1
             money += 1
@@ -132,17 +136,82 @@ class ViewController: UIViewController {
     }
     
     @IBAction func unmixIceCubesIsPressed(sender: UIButton) {
-        if (iceCubeRatio > 0) {
+        if (iceCubeRatio > 1) {
             iceCubeRatio -= 1
+        } else {
+            showAlerts(header: "No Ice?", message: "You need to have at least one ice cube")
         }
         updateView()
     }
     
     @IBAction func sellingBtnPressed(sender: UIButton) {
+        if ((money >= 0) && (lemons > 0) && (iceCubes > 0)) {
+            customers = Factory.createCustomers()
+            if (Weather.predictWeather() == "Warm") {
+                imgWeather.image = UIImage(named: "Warm")
+            } else if (Weather.predictWeather() == "Cold") {
+                imgWeather.image = UIImage(named: "Cold")
+            } else {
+                imgWeather.image = UIImage(named: "Mild")
+            }
+            gettingPaid(customers)
+            for (index, customer) in enumerate(customers) {
+                println("Customer \(index + 1): Taste Preference: \(customer.tastePreference) Paid: \(customer.willPay)")
+                if (customer.willPay) {
+                    money += 2
+                }
+            }
+            resetState()
+            updateView()
+        } else {
+            showAlerts(header: "Game Over", message: "You have run out of funds!")
+        }
     }
     
-    func calculateRatio(lemonRatio:Int, iceCubeRatio:Int) -> Float {
-        return Float(lemonRatio) / Float(iceCubeRatio)
+    func resetState() {
+        lemons = lemons - lemonRatio
+        iceCubes = iceCubes - iceCubeRatio
+        
+        iceCubeRatio = 1
+        iceCubeCount = 0
+        
+        lemonRatio = 1
+        lemonCount = 0
+    }
+    
+    func calculateTaste(lemonRatio:Int, iceCubeRatio:Int) -> String {
+        lemonToIceRatio = Float(lemonRatio) / Float(iceCubeRatio)
+        
+        if (lemonToIceRatio < 0.4) {
+            return "Diluted Lemonade"
+        } else if (lemonToIceRatio >= 0.4) && (lemonToIceRatio < 0.6) {
+            return "Equal Lemonade"
+        } else {
+            return "Acidic Lemonade"
+        }
+    }
+    
+    func gettingPaid(customers:[Customer]) {
+        var taste = calculateTaste(lemonRatio, iceCubeRatio: iceCubeRatio)
+        println("Taste: \(taste)")
+        for customer in customers {
+            switch taste {
+            case "Diluted Lemonade":
+                if (customer.tastePreference >= 0 && customer.tastePreference < 0.4) {
+                    customer.willPay = true
+                }
+            case "Equal Lemonade":
+                if (customer.tastePreference >= 0.4 && customer.tastePreference < 0.6) {
+                    customer.willPay = true
+                }
+            case "Acidic Lemonade":
+                if (customer.tastePreference >= 0.6 && customer.tastePreference <= 1) {
+                    customer.willPay = true
+                }
+            default:
+                customer.willPay = false
+            }
+        }
     }
     
     func showAlerts(header:String = "Warning", message:String) {

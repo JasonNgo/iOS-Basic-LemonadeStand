@@ -13,6 +13,9 @@
 		7D05710F19F08A8B00D8F5A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D05710E19F08A8B00D8F5A8 /* Images.xcassets */; };
 		7D05711219F08A8B00D8F5A8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D05711019F08A8B00D8F5A8 /* LaunchScreen.xib */; };
 		7D05711E19F08A8C00D8F5A8 /* Lemonade_StandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D05711D19F08A8C00D8F5A8 /* Lemonade_StandTests.swift */; };
+		7DBDAC1E19F14B0A0074F9D5 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDAC1D19F14B0A0074F9D5 /* Customer.swift */; };
+		7DBDAC2019F14BDC0074F9D5 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDAC1F19F14BDC0074F9D5 /* Factory.swift */; };
+		7DBDAC2319F1BEA20074F9D5 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDAC2219F1BEA20074F9D5 /* Weather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		7D05711719F08A8C00D8F5A8 /* Lemonade StandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Lemonade StandTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D05711C19F08A8C00D8F5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D05711D19F08A8C00D8F5A8 /* Lemonade_StandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lemonade_StandTests.swift; sourceTree = "<group>"; };
+		7DBDAC1D19F14B0A0074F9D5 /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		7DBDAC1F19F14BDC0074F9D5 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		7DBDAC2219F1BEA20074F9D5 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,8 @@
 			children = (
 				7D05710719F08A8B00D8F5A8 /* AppDelegate.swift */,
 				7D05710919F08A8B00D8F5A8 /* ViewController.swift */,
+				7DBDAC2219F1BEA20074F9D5 /* Weather.swift */,
+				7DBDAC2119F14BF00074F9D5 /* Model */,
 				7D05710B19F08A8B00D8F5A8 /* Main.storyboard */,
 				7D05710E19F08A8B00D8F5A8 /* Images.xcassets */,
 				7D05711019F08A8B00D8F5A8 /* LaunchScreen.xib */,
@@ -110,6 +118,15 @@
 				7D05711C19F08A8C00D8F5A8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7DBDAC2119F14BF00074F9D5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7DBDAC1D19F14B0A0074F9D5 /* Customer.swift */,
+				7DBDAC1F19F14BDC0074F9D5 /* Factory.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +178,7 @@
 				TargetAttributes = {
 					7D05710119F08A8B00D8F5A8 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 3TDSAUM76X;
 					};
 					7D05711619F08A8C00D8F5A8 = {
 						CreatedOnToolsVersion = 6.1;
@@ -212,8 +230,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DBDAC2019F14BDC0074F9D5 /* Factory.swift in Sources */,
+				7DBDAC1E19F14B0A0074F9D5 /* Customer.swift in Sources */,
 				7D05710A19F08A8B00D8F5A8 /* ViewController.swift in Sources */,
 				7D05710819F08A8B00D8F5A8 /* AppDelegate.swift in Sources */,
+				7DBDAC2319F1BEA20074F9D5 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +428,7 @@
 				7D05712319F08A8C00D8F5A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D05712419F08A8C00D8F5A8 /* Build configuration list for PBXNativeTarget "Lemonade StandTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +437,7 @@
 				7D05712619F08A8C00D8F5A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
